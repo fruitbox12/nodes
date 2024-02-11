@@ -1,0 +1,18 @@
+import { NETWORK } from '../../src/ChainNetwork';
+import { IETHOperation } from '../../src/ETHOperations';
+export declare const debugOperationsNetworks: NETWORK[];
+export declare const debugOperations: IETHOperation[];
+export declare const arbTraceOperationsNetworks: NETWORK[];
+export declare const arbTraceOperations: IETHOperation[];
+export declare const traceOperationsNetworks: NETWORK[];
+export declare const traceOperations: IETHOperation[];
+export declare const nftOperationsNetworks: NETWORK[];
+export declare const solanaNetworks: NETWORK[];
+export declare const nftOperations: IETHOperation[];
+export declare const tokenOperationsNetworks: NETWORK[];
+export declare const tokenOperations: IETHOperation[];
+export declare const avaxOperationsNetworks: NETWORK[];
+export declare const avaxOperations: IETHOperation[];
+export declare const fantomOperationsNetworks: NETWORK[];
+export declare const fantomOperations: IETHOperation[];
+export declare const platformOperations: IETHOperation[];

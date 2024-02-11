@@ -1,0 +1,14 @@
+import { INodeOptionsValue, INodeParams } from '../../src';
+import { IETHOperation } from '../../src/ETHOperations';
+export declare const NFTOperationsOptions: INodeOptionsValue[];
+export declare const getNFTsProperties: INodeParams[];
+export declare const getNFTMetadataProperties: INodeParams[];
+export declare const getNFTsForCollectionProperties: INodeParams[];
+export declare const getOwnersForCollectionProperties: INodeParams[];
+export declare const getOwnersForTokenProperties: INodeParams[];
+export declare const searchContractMetadataProperties: INodeParams[];
+export declare const isHolderOfCollectionProperties: INodeParams[];
+export declare const getNFTSalesProperties: INodeParams[];
+export declare const getContractsForOwnerProperties: INodeParams[];
+export declare const transactionReceiptsOperations: IETHOperation[];
+export declare const tokenAPIOperations: IETHOperation[];
