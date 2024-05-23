@@ -72,7 +72,7 @@ class OpenAI {
 this.credentials = [
     {
         label: 'API Key',
-        name: 'apiKey',
+        name: 'credentialMethod',
         type: 'string',
         default: '',
         placeholder: 'Enter your OpenAI API Key',
@@ -203,6 +203,7 @@ this.inputParameters = [
         }
     }
 ];
+
 
     }
     async run(nodeData) {
