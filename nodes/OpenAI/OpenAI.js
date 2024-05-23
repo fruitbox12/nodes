@@ -48,165 +48,162 @@ class OpenAI {
         this.description = 'ChatGPT, image generation or text completion from prompt via OpenAI API';
         this.incoming = 1;
         this.outgoing = 1;
-        this.actions = [
+      this.actions = [
+    {
+        label: 'Operation',
+        name: 'operation',
+        type: 'options',
+        options: [
             {
-                label: 'Operation',
-                name: 'operation',
-                type: 'options',
-                options: [
-                    {
-                        label: 'ChatGPT',
-                        name: 'chatgpt'
-                    },
-                    {
-                        label: 'Generate Image via text prompt',
-                        name: 'generateImage'
-                    },
-                    {
-                        label: 'Generate Text Completion via text prompt',
-                        name: 'textCompletion'
-                    }
-                ]
+                label: 'ChatGPT',
+                name: 'chatgpt'
+            },
+            {
+                label: 'Generate Image via text prompt',
+                name: 'generateImage'
+            },
+            {
+                label: 'Generate Text Completion via text prompt',
+                name: 'textCompletion'
             }
-        ];
-        this.credentials = [
+        ]
+    }
+];
+this.credentials = [
+    {
+        label: 'API Key',
+        name: 'apiKey',
+        type: 'string',
+        default: '',
+        placeholder: 'Enter your OpenAI API Key',
+        description: 'OpenAI API Key to use for authentication.'
+    }
+];
+this.inputParameters = [
+    {
+        label: 'Model',
+        name: 'model',
+        type: 'asyncOptions',
+        loadMethod: 'listModels',
+        description: 'AI model to use.',
+        default: 'text-davinci-003',
+        show: {
+            'actions.operation': ['textCompletion']
+        }
+    },
+    {
+        label: 'Model',
+        name: 'model',
+        type: 'options',
+        options: [
             {
-                label: 'Credential Method',
-                name: 'credentialMethod',
-                type: 'options',
-                options: [
-                    {
-                        label: 'OpenAI API Key',
-                        name: 'openAIApi'
-                    }
-                ],
-                default: 'openAIApi'
+                label: 'gpt-3.5-turbo',
+                name: 'gpt-3.5-turbo'
+            },
+            {
+                label: 'gpt-3.5-turbo-0301',
+                name: 'gpt-3.5-turbo-0301'
             }
-        ];
-        this.inputParameters = [
+        ],
+        description: 'ChatGPT model to use.',
+        default: 'gpt-3.5-turbo',
+        show: {
+            'actions.operation': ['chatgpt']
+        }
+    },
+    {
+        label: 'Text Prompt',
+        name: 'prompt',
+        type: 'string',
+        default: '',
+        placeholder: 'Write me a 250 words essay on fish',
+        description: 'The prompt for ChatGPT',
+        show: {
+            'actions.operation': ['chatgpt']
+        }
+    },
+    {
+        label: 'Text Prompt',
+        name: 'prompt',
+        type: 'string',
+        default: '',
+        placeholder: 'Say this is a test',
+        description: 'The prompt to generate completions for',
+        show: {
+            'actions.operation': ['textCompletion']
+        }
+    },
+    {
+        label: 'Image Description',
+        name: 'prompt',
+        type: 'string',
+        default: '',
+        placeholder: 'Photograph of an astronaut riding a horse',
+        description: 'Description of the image you want to generate. The maximum length is 1000 characters.',
+        show: {
+            'actions.operation': ['generateImage']
+        }
+    },
+    {
+        label: 'Image Number',
+        name: 'imageNumber',
+        type: 'number',
+        placeholder: '1',
+        default: '1',
+        description: 'The number of images to generate. Must be between 1 and 10.',
+        optional: true,
+        show: {
+            'actions.operation': ['generateImage']
+        }
+    },
+    {
+        label: 'Image Size',
+        name: 'imageSize',
+        type: 'options',
+        description: 'The size of the generated images.',
+        options: [
             {
-                label: 'Model',
-                name: 'model',
-                type: 'asyncOptions',
-                loadMethod: 'listModels',
-                description: 'AI model to use.',
-                default: 'text-davinci-003',
-                show: {
-                    'actions.operation': ['textCompletion']
-                }
+                label: '256x256',
+                name: '256x256'
             },
             {
-                label: 'Model',
-                name: 'model',
-                type: 'options',
-                options: [
-                    {
-                        label: 'gpt-3.5-turbo',
-                        name: 'gpt-3.5-turbo'
-                    },
-                    {
-                        label: 'gpt-3.5-turbo-0301',
-                        name: 'gpt-3.5-turbo-0301'
-                    }
-                ],
-                description: 'ChatGPT model to use.',
-                default: 'gpt-3.5-turbo',
-                show: {
-                    'actions.operation': ['chatgpt']
-                }
+                label: '512x512',
+                name: '512x512'
             },
             {
-                label: 'Text Prompt',
-                name: 'prompt',
-                type: 'string',
-                default: '',
-                placeholder: 'Write me a 250 words essay on fish',
-                description: 'The prompt for chatpgt',
-                show: {
-                    'actions.operation': ['chatgpt']
-                }
-            },
-            {
-                label: 'Text Prompt',
-                name: 'prompt',
-                type: 'string',
-                default: '',
-                placeholder: 'Say this is a test',
-                description: 'The prompt to generate completions for',
-                show: {
-                    'actions.operation': ['textCompletion']
-                }
-            },
-            {
-                label: 'Image Description',
-                name: 'prompt',
-                type: 'string',
-                default: '',
-                placeholder: 'Photograph of an astronaut riding a horse',
-                description: 'Description of the image you want to generated. The maximum length is 1000 characters.',
-                show: {
-                    'actions.operation': ['generateImage']
-                }
-            },
-            {
-                label: 'Image Number',
-                name: 'imageNumber',
-                type: 'number',
-                placeholder: '1',
-                default: '1',
-                description: 'The number of images to generate. Must be between 1 and 10.',
-                optional: true,
-                show: {
-                    'actions.operation': ['generateImage']
-                }
-            },
-            {
-                label: 'Image Size',
-                name: 'imageSize',
-                type: 'options',
-                description: 'The size of the generated images.',
-                options: [
-                    {
-                        label: '256x256',
-                        name: '256x256'
-                    },
-                    {
-                        label: '512x512',
-                        name: '512x512'
-                    },
-                    {
-                        label: '1024x1024',
-                        name: '1024x1024'
-                    }
-                ],
-                optional: true,
-                default: '1024x1024',
-                show: {
-                    'actions.operation': ['generateImage']
-                }
-            },
-            {
-                label: 'Response Format',
-                name: 'response_format',
-                type: 'options',
-                description: 'The format in which the generated images are returned.',
-                options: [
-                    {
-                        label: 'url',
-                        name: 'url'
-                    },
-                    {
-                        label: 'b64_json',
-                        name: 'b64_json'
-                    }
-                ],
-                default: 'url',
-                optional: true,
-                show: {
-                    'actions.operation': ['generateImage']
-                }
+                label: '1024x1024',
+                name: '1024x1024'
             }
-        ];
+        ],
+        optional: true,
+        default: '1024x1024',
+        show: {
+            'actions.operation': ['generateImage']
+        }
+    },
+    {
+        label: 'Response Format',
+        name: 'response_format',
+        type: 'options',
+        description: 'The format in which the generated images are returned.',
+        options: [
+            {
+                label: 'url',
+                name: 'url'
+            },
+            {
+                label: 'b64_json',
+                name: 'b64_json'
+            }
+        ],
+        default: 'url',
+        optional: true,
+        show: {
+            'actions.operation': ['generateImage']
+        }
+    }
+];
+
     }
     async run(nodeData) {
         const inputParametersData = nodeData.inputParameters;
