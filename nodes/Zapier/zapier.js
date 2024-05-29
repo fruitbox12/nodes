@@ -14,7 +14,6 @@ class Zapier {
         this.incoming = 1;
         this.outgoing = 1;
         this.actions = [
-            // Define the endpoints
             { label: 'Get Apps [v1]', name: 'apps/v1', method: 'GET' },
             { label: 'Get Apps [v2]', name: 'apps/v2', method: 'GET' },
             { label: 'Get Categories', name: 'categories', method: 'GET' },
@@ -30,7 +29,7 @@ class Zapier {
             { label: 'Get Choices', name: 'actions/choices', method: 'POST' },
             { label: 'Step Test', name: 'actions/step-test', method: 'POST' },
             { label: 'Get Authentications', name: 'authentications', method: 'GET' },
-            { label: 'Create Authentication', name: 'authentications', method: 'POST' },
+            { label: 'Create Authentication', name: 'authentications/create', method: 'POST' }
         ];
         this.credentials = [
             {
@@ -52,14 +51,37 @@ class Zapier {
                 name: 'payload',
                 type: 'json',
                 placeholder: '{"key": "value"}',
-                optional: true
+                optional: true,
+                show: {
+                    endpoint: [
+                        'accounts',
+                        'zaps',
+                        'actions/input-fields',
+                        'actions/output-fields',
+                        'actions/choices',
+                        'actions/step-test',
+                        'authentications/create'
+                    ]
+                }
             },
             {
                 label: 'Query Parameters',
                 name: 'queryParams',
                 type: 'json',
                 placeholder: '{"key": "value"}',
-                optional: true
+                optional: true,
+                show: {
+                    endpoint: [
+                        'apps/v1',
+                        'apps/v2',
+                        'categories',
+                        'zap-templates',
+                        'zaps/v1',
+                        'zaps/v2',
+                        'actions',
+                        'authentications'
+                    ]
+                }
             }
         ];
     }
@@ -68,7 +90,7 @@ class Zapier {
         const actionData = nodeData.actions;
         const inputParametersData = nodeData.inputParameters;
         const credentials = nodeData.credentials;
-        
+
         if (!actionData || !inputParametersData || !credentials) {
             throw new Error('Required data missing');
         }
@@ -77,10 +99,10 @@ class Zapier {
         const authToken = credentials.token;
         const payload = inputParametersData.payload || {};
         const queryParams = inputParametersData.queryParams || {};
-        
+
         const url = `https://api.zapier.com/${endpoint}`;
         const method = actionData.method;
-        
+
         try {
             const response = await axios({
                 method: method,
