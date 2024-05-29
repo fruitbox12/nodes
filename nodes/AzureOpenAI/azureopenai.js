@@ -13,7 +13,7 @@ class AzureOpenAI_LLMs {
     this.version = 3.0
     this.type = "AzureOpenAI"
     this.icon = "Azure.svg"
-    this.category = "LLMs"
+    this.category = "Artificial Intelligence"
     this.description = "Wrapper around Azure OpenAI large language models"
     this.baseClasses = [this.type, ...getBaseClasses(OpenAI)]
     this.credential = {
