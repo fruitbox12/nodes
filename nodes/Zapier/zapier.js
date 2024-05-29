@@ -4,14 +4,14 @@ const utils = require("../../src/utils");
 
 class Zapier {
     constructor() {
-        this.label = 'Zapier';
-        this.name = 'zapier';
-        this.icon = 'zapier.svg';
-        this.type = 'action';
+        this.label = 'Zapier API Trigger';
+        this.name = 'ZapierAPITrigger';
+        this.icon = 'https://www.svgrepo.com/show/354596/zapier-icon.svg';
+        this.type = 'trigger';
         this.category = 'Integrations';
         this.version = 1.0;
-        this.description = 'Execute Zapier API requests';
-        this.incoming = 1;
+        this.description = 'Start workflow based on Zapier API events';
+        this.incoming = 0;
         this.outgoing = 1;
         this.actions = [
             { label: 'Get Apps [v1]', name: 'apps/v1', method: 'GET' },
@@ -53,7 +53,7 @@ class Zapier {
                 placeholder: '{"key": "value"}',
                 optional: true,
                 show: {
-                    endpoint: [
+                    'actions.endpoint': [
                         'accounts',
                         'zaps',
                         'actions/input-fields',
@@ -71,7 +71,7 @@ class Zapier {
                 placeholder: '{"key": "value"}',
                 optional: true,
                 show: {
-                    endpoint: [
+                    'actions.endpoint': [
                         'apps/v1',
                         'apps/v2',
                         'categories',
@@ -101,7 +101,7 @@ class Zapier {
         const queryParams = inputParametersData.queryParams || {};
 
         const url = `https://api.zapier.com/${endpoint}`;
-        const method = actionData.method;
+        const method = this.actions.find(action => action.name === endpoint).method;
 
         try {
             const response = await axios({
