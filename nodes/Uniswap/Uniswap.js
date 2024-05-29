@@ -10,6 +10,7 @@ const IWETH_json_1 = __importDefault(require("@uniswap/v2-periphery/build/IWETH.
 const axios_1 = __importDefault(require("axios"));
 const simple_uniswap_sdk_1 = require("simple-uniswap-sdk");
 const nativeTokens_1 = require("./nativeTokens");
+
 class Uniswap {
     constructor() {
         this.loadMethods = {
@@ -45,8 +46,7 @@ class Uniswap {
                         returnData.push(data);
                     }
                     return returnData;
-                }
-                catch (e) {
+                } catch (e) {
                     return returnData;
                 }
             },
@@ -71,8 +71,7 @@ class Uniswap {
                         returnData.push(data);
                     }
                     return returnData;
-                }
-                catch (e) {
+                } catch (e) {
                     return returnData;
                 }
             },
@@ -129,21 +128,51 @@ class Uniswap {
                         label: ChainNetwork_1.NETWORK_LABEL.MAINNET,
                         name: ChainNetwork_1.NETWORK.MAINNET,
                         parentGroup: 'Ethereum'
+                    },
+                    {
+                        label: ChainNetwork_1.NETWORK_LABEL.POLYGON,
+                        name: ChainNetwork_1.NETWORK.POLYGON,
+                        parentGroup: 'Polygon'
+                    },
+                    {
+                        label: ChainNetwork_1.NETWORK_LABEL.OPTIMISM,
+                        name: ChainNetwork_1.NETWORK.OPTIMISM,
+                        parentGroup: 'Optimism'
+                    },
+                    {
+                        label: ChainNetwork_1.NETWORK_LABEL.ARBITRUM,
+                        name: ChainNetwork_1.NETWORK.ARBITRUM,
+                        parentGroup: 'Arbitrum'
+                    },
+                    {
+                        label: ChainNetwork_1.NETWORK_LABEL.BASE,
+                        name: ChainNetwork_1.NETWORK.BASE,
+                        parentGroup: 'Base'
+                    },
+                    {
+                        label: ChainNetwork_1.NETWORK_LABEL.BNB,
+                        name: ChainNetwork_1.NETWORK.BNB,
+                        parentGroup: 'BNB'
+                    },
+                    {
+                        label: ChainNetwork_1.NETWORK_LABEL.CELO,
+                        name: ChainNetwork_1.NETWORK.CELO,
+                        parentGroup: 'Celo'
+                    },
+                    {
+                        label: ChainNetwork_1.NETWORK_LABEL.AVALANCHE,
+                        name: ChainNetwork_1.NETWORK.AVALANCHE,
+                        parentGroup: 'Avalanche'
+                    },
+                    {
+                        label: ChainNetwork_1.NETWORK_LABEL.BLAST,
+                        name: ChainNetwork_1.NETWORK.BLAST,
+                        parentGroup: 'Blast'
                     }
                 ],
                 default: 'homestead',
                 show: {
                     'actions.operation': ['getPairs', 'customQuery']
-                }
-            },
-            {
-                label: 'Network',
-                name: 'network',
-                type: 'options',
-                options: [...ChainNetwork_1.ETHNetworks],
-                default: 'homestead',
-                show: {
-                    'actions.operation': ['swapTokens']
                 }
             },
             {
@@ -292,6 +321,7 @@ class Uniswap {
             }
         ];
     }
+
     async run(nodeData) {
         const networksData = nodeData.networks;
         const actionsData = nodeData.actions;
@@ -384,33 +414,32 @@ class Uniswap {
                     };
                     return (0, utils_1.returnNodeExecutionData)(returnItem);
                 }
-            }
-            else if (operation === 'getPairs' || operation === 'customQuery') {
+            } else if (operation === 'getPairs' || operation === 'customQuery') {
                 let query = '';
                 if (operation === 'customQuery')
                     query = inputParametersData.query;
                 else {
                     query = `{
-						pairs(
-							first: 100 
-							orderBy: reserveUSD
-							orderDirection: desc
-						) { 
-							id 
-							token0 { 
-								id 
-								symbol 
-								name 
-							} 
-							token1 { 
-								id 
-								symbol 
-								name 
-							}
-							reserveUSD
-							volumeUSD
-						}
-					}`;
+                        pairs(
+                            first: 100 
+                            orderBy: reserveUSD
+                            orderDirection: desc
+                        ) { 
+                            id 
+                            token0 { 
+                                id 
+                                symbol 
+                                name 
+                            } 
+                            token1 { 
+                                id 
+                                symbol 
+                                name 
+                            }
+                            reserveUSD
+                            volumeUSD
+                        }
+                    }`;
                 }
                 query = query.replace(/\s/g, ' ');
                 const axiosConfig = {
@@ -428,8 +457,7 @@ class Uniswap {
                 return (0, utils_1.returnNodeExecutionData)(returnData);
             }
             return (0, utils_1.returnNodeExecutionData)([]);
-        }
-        catch (e) {
+        } catch (e) {
             throw (0, utils_1.handleErrorMessage)(e);
         }
     }
