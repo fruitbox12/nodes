@@ -97,7 +97,9 @@ class Uniswap {
             {
                 label: 'Operation',
                 name: 'operation',
-                type: 'options',
+                type: 'asyncOptions',
+                                loadMethod: 'loadNetworks',
+
                 options: [
                     {
                         label: 'Swap Tokens',
