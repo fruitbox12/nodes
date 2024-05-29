@@ -122,7 +122,9 @@ class Uniswap {
             {
                 label: 'Network',
                 name: 'network',
-                type: 'options',
+                type: 'asyncOptions',
+                                loadMethod: 'listNetworks'
+
                 options: [
                     {
                         label: ChainNetwork_1.NETWORK_LABEL.MAINNET,
