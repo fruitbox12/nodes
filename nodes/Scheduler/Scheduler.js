@@ -12,7 +12,7 @@ class Scheduler extends events_1.default {
         this.label = 'Scheduler';
         this.name = 'scheduler';
         this.icon = 'scheduler.svg';
-        this.type = 'trigger';
+        this.type = 'scheduler';
         this.category = 'Utilities';
         this.version = 1.1;
         this.description = 'Start workflow at scheduled times';
