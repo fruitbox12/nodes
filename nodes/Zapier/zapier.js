@@ -35,7 +35,7 @@ class Zapier {
             {
                 label: 'Authorization',
                 name: 'credentialMethod',
-                type: 'options',
+                type: 'string',
                 options: [
                     {
                         label: 'Bearer Token Auth',
