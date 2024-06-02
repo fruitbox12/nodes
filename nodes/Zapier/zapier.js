@@ -6,7 +6,7 @@ class Zapier {
     constructor() {
         this.label = 'Zapier API Trigger';
         this.name = 'ZapierAPITrigger';
-        this.icon = 'https://www.svgrepo.com/show/354596/zapier-icon.svg';
+        this.icon = 'https://cdn.iconscout.com/icon/free/png-256/free-zapier-3629179-3030319.png';
         this.type = 'trigger';
         this.category = 'Integrations';
         this.version = 1.0;
