@@ -111,7 +111,7 @@ class HuggingFace {
             {
                 label: 'Credential Method',
                 name: 'credentialMethod',
-                type: 'options',
+                type: 'string',
                 options: [
                     {
                         label: 'HuggingFace Access Token',
