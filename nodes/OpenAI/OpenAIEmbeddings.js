@@ -63,20 +63,48 @@ class OpenAIEmbeddingsNode {
         ];
         this.credentials = [
             {
-                label: 'API Key',
+                label: 'Credential Method',
                 name: 'credentialMethod',
-                type: 'string',
-                default: '',
-                placeholder: 'Enter your OpenAI API Key',
-                description: 'OpenAI API Key to use for authentication.'
+                type: 'options',
+                options: [
+                    {
+                        label: 'OpenAI API Key',
+                        name: 'openAIApi'
+                    }
+                ],
+                default: 'openAIApi'
             }
         ];
         this.inputParameters = [
             {
-                label: 'Model Name',
-                name: 'modelName',
+                label: 'Model',
+                name: 'model',
                 type: 'asyncOptions',
                 loadMethod: 'listModels',
+                description: 'AI model to use.',
+                default: 'text-embedding-ada-002',
+                show: {
+                    'actions.operation': ['generateEmbeddings']
+                }
+            },
+            {
+                label: 'Model',
+                name: 'model',
+                type: 'options',
+                options: [
+                    {
+                        label: 'text-embedding-ada-002',
+                        name: 'text-embedding-ada-002'
+                    },
+                    {
+                        label: 'text-similarity-ada-001',
+                        name: 'text-similarity-ada-001'
+                    },
+                    {
+                        label: 'text-embedding-babbage-001',
+                        name: 'text-embedding-babbage-001'
+                    }
+                ],
                 description: 'The OpenAI model to use for generating embeddings.',
                 default: 'text-embedding-ada-002',
                 show: {
@@ -153,7 +181,7 @@ class OpenAIEmbeddingsNode {
         }
         const returnData = [];
         const operation = actionsData.operation;
-        const modelName = inputParametersData.modelName;
+        const model = inputParametersData.model;
         const text = inputParametersData.text;
         const stripNewLines = inputParametersData.stripNewLines;
         const batchSize = inputParametersData.batchSize;
@@ -166,15 +194,15 @@ class OpenAIEmbeddingsNode {
 
         const obj = {
             apiKey: credentials.apiKey,
-            modelName,
+            model,
             stripNewLines,
             batchSize,
             timeout
         };
 
         try {
-            const model = new OpenAIEmbeddings(obj, { basePath: basepath });
-            const embeddings = await model.embedQuery(text);
+            const modelInstance = new OpenAIEmbeddings(obj, { basePath: basepath });
+            const embeddings = await modelInstance.embedQuery(text);
             returnData.push(embeddings);
         } catch (error) {
             throw (0, utils_1.handleErrorMessage)(error);
