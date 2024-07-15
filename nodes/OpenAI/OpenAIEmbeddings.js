@@ -183,6 +183,5 @@ class OpenAIEmbeddingsNode {
         return (0, utils_1.returnNodeExecutionData)(returnData);
     }
 }
-
 module.exports = { nodeClass: OpenAIEmbeddingsNode };
 //# sourceMappingURL=OpenAIEmbeddings.js.map
