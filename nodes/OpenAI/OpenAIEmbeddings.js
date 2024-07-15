@@ -5,14 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("../../src/utils");
 const axios_1 = __importDefault(require("axios"));
-class OpenAIEmbeddings {
+const { OpenAIEmbeddings } = require("@langchain/openai");
+
+class OpenAIEmbeddingsNode {
     constructor() {
         this.loadMethods = {
             async listModels(nodeData) {
                 const returnData = [];
                 const credentials = nodeData.credentials;
-                if (credentials === undefined)
-                    return returnData;
+                if (!credentials) return returnData;
                 try {
                     const axiosConfig = {
                         method: 'GET',
@@ -33,8 +34,7 @@ class OpenAIEmbeddings {
                         returnData.push(data);
                     }
                     return returnData;
-                }
-                catch (e) {
+                } catch (e) {
                     return returnData;
                 }
             }
@@ -140,14 +140,15 @@ class OpenAIEmbeddings {
             }
         ];
     }
+
     async run(nodeData) {
         const inputParametersData = nodeData.inputParameters;
         const credentials = nodeData.credentials;
         const actionsData = nodeData.actions;
-        if (inputParametersData === undefined || actionsData === undefined) {
+        if (!inputParametersData || !actionsData) {
             throw new Error('Required data missing');
         }
-        if (credentials === undefined) {
+        if (!credentials) {
             throw new Error('Missing credential');
         }
         const returnData = [];
@@ -182,5 +183,6 @@ class OpenAIEmbeddings {
         return (0, utils_1.returnNodeExecutionData)(returnData);
     }
 }
-module.exports = { nodeClass: OpenAIEmbeddings };
+
+module.exports = { nodeClass: OpenAIEmbeddingsNode };
 //# sourceMappingURL=OpenAIEmbeddings.js.map
